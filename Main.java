@@ -174,6 +174,98 @@ public class Main {
         g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
       }
 
+      // the value of the check apple function
+      private void checkApple() {
+        // if the x position and the y position are 0, it adds dot value
+        if ((x[0] == apple_x) && (y[0] == apple_y)) {
+
+          // here it adds the dot value for infinity
+          dots++;
+          // we declare a locate function for the apple
+          locateApple();
+        }
+      }
+
+      // here we add the detection of keys for moving
+      private void move() {
+
+        // we make z have the value of dots, and enter a direction loop
+        for (int z = dots; z > 0; z--) {
+          // z makes x and y go down 1
+          x[z] = x[z - 1];
+          x[y] = x[y - 1];
+        }
+
+        // if the user enters the left key, we lower dot size for x
+        if (leftDirection) {
+          x[0] -= DOT_SIZE;
+        }
+        // if the user enters the right key, we add dot size for x
+        if (rightDirection) {
+          x[0] += DOT_SIZE;
+        }
+        // if the user enters the up key, we lower dot size for y
+        if (upDirection) {
+          y[0] -= DOT_SIZE;
+        }
+        // if the user enters the down key, we lower dot size for y
+        if (downDirection) {
+          y[0] += DOT_SIZE;
+        }
+      }
+
+    // collision detection function
+    private void checkCollison() {
+
+      // we once again enter the direction loop previously stated
+      for (int z = dots; z > 0; z--) {
+
+        // if AFK is true we know that they are not in game
+        if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
+          inGame = false;
+        }
+      }
+
+      // if the y axis is more than the user can publicly access, it cuts the game, because that is not possible
+      if (y[0] >= B_HEIGHT) {
+        inGame = false;
+      }
+
+      // if the y axis is less than 0, the game cuts off because that is not possible
+      if (y[0] < 0) {
+        inGame = false;
+      }
+
+      // if the x axis is more than the user can publicly access, it cuts the game loop, because it is not possible
+      if (x[0] >= B_WIDTH) {
+        inGame = false;
+      }
+
+      // if the x axis is less than 0, it cuts off the game loop, because it is not possible
+      if (x[0] < 0) {
+        inGame = false;
+      }
+
+      // if the game loop is not running, it shuts down the program
+      if (!inGame) {
+        timer.stop();
+      }
+    }
+
+  // the value of the locate apple function
+  private void locateApple() {
+
+    // the value of r is a random number times a random position
+    int r = (int) (Math.random() * RAND_POS);
+    // the x axis of the apple is r times the dot dot size
+    apple_x = ((r * DOT_SIZE));
+
+    // the value of r is a random number times a random position
+    r = (int) (Math.random() * RAND_POS);
+    // the y axis is r times dot size
+    apple_y = ((r * DOT_SIZE));
+  }
+
 // compile allow for java
 public static void Main(String[] args) {
   }
