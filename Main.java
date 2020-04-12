@@ -266,31 +266,40 @@ public class Main {
     apple_y = ((r * DOT_SIZE));
   }
 
+  // we add key movements using the t adapter library
   private class TAdapter extends KeyAdapter {
 
+    // overrides key mapping from user
     @Override
+
+    // the key pressed function
     public void keyPressed(KeyEvent e) {
 
+      // the value of the "key" is based off what the user presses
       int key = e.getKeyCode();
 
+      // if the key isnt the right key and has been pressed, it pushes the user left
       if ((key == KeyEvent.VK_LEFT) && (!rightDirection)) {
         leftDirection = true;
         upDirection = false;
         downDirection = false;
       }
 
+      // if the key isnt left and has been pressed, it pushes the user right
       if ((key == KeyEvent.VK_RIGHT) && (!leftDirection)) {
         rightDirection = true;
         upDirection = false;
         downDirection = false;
       }
 
+      // if the key isnt down, and has been pressed, it pushes the user up
       if ((key == KeyEvent.VK_UP) && (!downDirection)) {
         upDirection = true;
         rightDirection = false;
         leftDirection = false;
       }
 
+      // if the key isnt up, and has been pressed, it pushes the user down
       if ((key == KeyEvent.VK_DOWN) && (!downDirection)) {
         downDirection = true;
         rightDirection = false;
